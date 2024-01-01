@@ -1,5 +1,6 @@
 import datetime
 from cisco import IOS_XE_17
+from huawei import VRP8
 
 # The device name, alarm type, and alarm description are used to obtain an HTML version of the email body
 def create_mail_body(device_name, alert_type, alert_description):
@@ -49,3 +50,10 @@ def cisco_runner():
     ios_xe.to_json(cisco_data, 'data/cisco.json')
 
     ios_xe.device.disconnect()
+
+def huawei_runner():
+    device_name = "huawei"
+    vrp = VRP8()
+
+    huawei_data = {}
+    huawei_data['config']] = vrp.get_config()
