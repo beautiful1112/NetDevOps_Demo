@@ -25,7 +25,7 @@ class Net:
             "username": username,
             "password": password,
         }
-        # self.device = self.connect()
+        self.device = self.connect()
 
     # 基本连接功能
     def connect(self):
