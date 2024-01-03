@@ -5,13 +5,13 @@ from email.header import Header
 from netmiko import ConnectHandler
 
 # 这里可以注册一个TOM邮箱或者自己可用SMTP的邮箱，使用自己的账户信息替代下面的内容
-usermail = "发件邮箱xxx@tom.com"
-password = "发件邮箱密码"
-smtpserver = "这里自己改smtp服务器smtp.tom.com"
+usermail = "richard_jaw@tom.com"
+password = "Huawei@123"
+smtpserver = "smtp.tom.com"
 smtpport = 25
 
 # 这里可以使用另一个邮箱来接收邮件
-alert_mail = "你自己接收告警的邮箱"
+alert_mail = "345515379@qq.com"
 
 
 # Net底层类

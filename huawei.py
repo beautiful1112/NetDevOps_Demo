@@ -3,15 +3,14 @@ from connection import Net
 
 class VRP8(Net):
     def __init__(self):
-        super().__init__('uawei_vrpv8', '192.168.229.10', 'huawei', 'huawei@123')
+        super().__init__('huawei', '192.168.229.10', 'huawei', 'Yestar@123')
 
     # 获取配置
     ## 输出字符串形式的设备配置
     def get_config(self):
         cmd = 'display current-configuration'
         info = self.device.send_command(cmd)
-        data_str = info.split('platform console serial\n!')[1]
-        return data_str
+        return info
 
     # 获取接口
     ## 输出列表形式的接口数据
