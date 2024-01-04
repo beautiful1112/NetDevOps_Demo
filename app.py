@@ -28,7 +28,7 @@ def cisco_runner():
     for interface in cisco_data['interfaces']:
         if interface['status'] != 'up':
             # Create an email body and send alarms
-            alert_des = f'{device_name} 的接口 {interface['name']} 被关闭了'
+            alert_des = f'{device_name} 的接口 {interface[name]} 被关闭了'
             body = create_mail_body(device_name, 'Error', alert_des)
             ios_xe.send_mail(subject='设备接口故障', body=body)
 
@@ -52,8 +52,40 @@ def cisco_runner():
     ios_xe.device.disconnect()
 
 def huawei_runner():
-    device_name = "huawei"
-    vrp = VRP8()
+    device_name = "huawei_vrpv8"
+    ce12800 = VRP8()
 
     huawei_data = {}
-    huawei_data['config']] = vrp.get_config()
+    huawei_data['config'] = ce12800.get_config()
+    huawei_data['interfaces'] = ce12800.get_interfaces()
+    huawei_data['routeTable'] = ce12800.get_route()
+    huawei_data['monitor'] = {'cpu': ce12800.monitor()}
+
+    # Task2. Recovering and checking the interface
+    for interface in huawei_data['interfaces']:
+        if interface['Physical'] != 'up':
+            # Create an email body and send alarms
+            alert_des = f'{device_name} 的接口 {interface[name]} 被关闭了'
+            body = create_mail_body(device_name, 'Error', alert_des)
+            ce12800.send_mail(subject='设备接口故障', body=body)
+
+            # Start interface recovery
+            ce12800.recover_interface(interface['name'])
+            huawei_data['interfaces'] = ce12800.get_interfaces()
+            print("接口已恢复")
+
+            # Task3. Configure a new route
+            dst = '172.16.10.0'
+            mask = '255.255.255.0'
+            next = '10.1.1.100'
+            if dst not in huawei_data['routeTable']:
+                ce12800.post_route(dst, mask, next)
+            huawei_data['routeTable'] = ce12800.get_route()
+            print(f'新增了一条路由指向 {dst}，数据已更新')
+
+            # Task4. Generate JSON
+            ce12800.to_json(huawei_data, 'data/huawei.json')
+
+            ce12800.device.disconnect()
+
+huawei_runner()

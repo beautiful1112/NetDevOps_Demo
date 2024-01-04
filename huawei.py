@@ -26,7 +26,7 @@ class VRP8(Net):
             protocol = line_list[3]
             data_list.append({'name': if_name,
                               'ip': if_ip,
-                              ' Physical': status,
+                              'Physical': status,
                               'Protocol':protocol})
         return data_list
         # 接口恢复UP
