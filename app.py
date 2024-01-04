@@ -28,7 +28,7 @@ def cisco_runner():
     for interface in cisco_data['interfaces']:
         if interface['status'] != 'up':
             # Create an email body and send alarms
-            alert_des = f'{device_name} 的接口 {interface[name]} 被关闭了'
+            alert_des = f"{device_name} 的接口 {interface['name']} 被关闭了"
             body = create_mail_body(device_name, 'Error', alert_des)
             ios_xe.send_mail(subject='设备接口故障', body=body)
 
@@ -65,7 +65,7 @@ def huawei_runner():
     for interface in huawei_data['interfaces']:
         if interface['Physical'] != 'up':
             # Create an email body and send alarms
-            alert_des = f'{device_name} 的接口 {interface[name]} 被关闭了'
+            alert_des = f"{device_name} 的接口 {interface['name']} 被关闭了"
             body = create_mail_body(device_name, 'Error', alert_des)
             ce12800.send_mail(subject='设备接口故障', body=body)
 
