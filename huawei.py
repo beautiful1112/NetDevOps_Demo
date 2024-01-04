@@ -54,10 +54,16 @@ class VRP8(Net):
     def monitor(self):
         cpu_cmd = 'display cpu'
         cpu_info = self.device.send_command(cpu_cmd)
-        line = cpu_info.split('\n')[0].split('MaxTime')[1]
-        cpu_list = line.split('%')
-        data_dict = {'cpu1_5s': cpu_list[0][-1:],
-                     'cpu2_5s': cpu_list[1][-1:],
-                     'cpu1_1m': cpu_list[2][-1:],
-                     'cpu1_5m': cpu_list[3][-1:]}
+        line = cpu_info.splitlines()
+        cpu_list = []
+        for cpu_data in line:
+            if cpu_data.startswith('cpu0'):
+                cpu_list.append(cpu_data)
+            if cpu_data.startswith('cpu1'):
+                cpu_list.append(cpu_data)
+
+        data_dict = {'cpu1_current': cpu_list[0].split()[1],
+                     'cpu2_current': cpu_list[1].split()[1],
+                     'cpu1_5s': cpu_list[0].split()[2],
+                     'cpu2_5s': cpu_list[1].split()[2]}
         return data_dict
