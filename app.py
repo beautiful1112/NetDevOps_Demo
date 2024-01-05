@@ -88,4 +88,5 @@ def huawei_runner():
 
             ce12800.device.disconnect()
 
-huawei_runner()
+if __name__ == "__main__":
+    huawei_runner()
