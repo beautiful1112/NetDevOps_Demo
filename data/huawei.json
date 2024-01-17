@@ -1,0 +1,32 @@
+{
+    "config": "!Software Version V200R005C10SPC607B607\n!Last configuration was updated at 2024-01-05 03:17:54+00:00\n!Last configuration was saved at 2024-01-04 09:06:51+00:00\n#\nsysname HUAWEI\n#\ndevice board 17 board-type CE-MPUB\ndevice board 1 board-type CE-LPUE\n#\naaa\n undo local-user policy security-enhance\n local-user huawei password irreversible-cipher $1c$~4K3Vg`z6@$g0Ey8r[;oR6;2T-s`ue\"B]Z8$L9#OXC`Y;CU.-lE$\n local-user huawei service-type ssh\n local-user huawei level 3\n #\n authentication-scheme default\n #\n authorization-scheme default\n #\n accounting-scheme default\n #\n domain default\n #\n domain default_admin\n#\ninterface MEth0/0/0\n shutdown\n ip address 10.255.255.1 255.255.255.0\n#\ninterface GE1/0/0\n undo portswitch\n undo shutdown\n ip address 192.168.229.10 255.255.255.0\n#\ninterface GE1/0/1\n undo shutdown\n#\ninterface GE1/0/2\n undo shutdown\n#\ninterface GE1/0/3\n undo shutdown\n#\ninterface GE1/0/4\n undo shutdown\n#\ninterface GE1/0/5\n undo shutdown\n#\ninterface GE1/0/6\n undo shutdown\n#\ninterface GE1/0/7\n undo shutdown\n#\ninterface GE1/0/8\n undo shutdown\n#\ninterface GE1/0/9\n undo shutdown\n#\ninterface NULL0\n#\nstelnet server enable\nssh user huawei\nssh user huawei authentication-type password\nssh user huawei service-type all\nssh authorization-type default aaa\n#\nssh server cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr aes256_cbc aes128_cbc 3des_cbc\n#\nssh server dh-exchange min-len 1024\n#\nssh client cipher aes256_gcm aes128_gcm aes256_ctr aes192_ctr aes128_ctr aes256_cbc aes128_cbc 3des_cbc\n#\nuser-interface con 0\n#\nuser-interface vty 0 4\n authentication-mode aaa\n protocol inbound ssh\n#\nvm-manager\n#\nreturn",
+    "interfaces": [
+        {
+            "name": "GE1/0/0",
+            "ip": "192.168.229.10/24",
+            "Physical": "up",
+            "Protocol": "up"
+        },
+        {
+            "name": "MEth0/0/0",
+            "ip": "10.255.255.1/24",
+            "Physical": "down",
+            "Protocol": "down"
+        },
+        {
+            "name": "NULL0",
+            "ip": "unassigned",
+            "Physical": "up",
+            "Protocol": "up(s)"
+        }
+    ],
+    "routeTable": "Destination/Mask    Proto   Pre  Cost        Flags NextHop         Interface\n   10.255.255.0/24  Direct  0    0             D   10.255.255.1    MEth0/0/0\n   10.255.255.1/32  Direct  0    0             D   127.0.0.1       MEth0/0/0\n 10.255.255.255/32  Direct  0    0             D   127.0.0.1       MEth0/0/0\n      127.0.0.0/8   Direct  0    0             D   127.0.0.1       InLoopBack0\n      127.0.0.1/32  Direct  0    0             D   127.0.0.1       InLoopBack0\n127.255.255.255/32  Direct  0    0             D   127.0.0.1       InLoopBack0\n  192.168.229.0/24  Direct  0    0             D   192.168.229.10  GE1/0/0\n 192.168.229.10/32  Direct  0    0             D   127.0.0.1       GE1/0/0\n192.168.229.255/32  Direct  0    0             D   127.0.0.1       GE1/0/0\n255.255.255.255/32  Direct  0    0             D   127.0.0.1       InLoopBack0",
+    "monitor": {
+        "cpu": {
+            "cpu1_current": "8%",
+            "cpu2_current": "4%",
+            "cpu1_5s": "0%",
+            "cpu2_5s": "0%"
+        }
+    }
+}
